@@ -1,18 +1,13 @@
 import express from "express";
-import { createExpense } from "../controllers/expenseController.js";
-import { Expense } from "../models/expense.js";
+import { createExpense, getAll, getOne, removeExpense, updateExpense } from "../controllers/expenseController.js";
 
 const expenseRouter = express.Router();
 
 // Get Routes
 
-expenseRouter.get("/meus-gastos", (req, res) => {
-  res.json({ msg: "Olá" });
-});
+expenseRouter.get("/meus-gastos", getAll);
 
-expenseRouter.get("/meus-gastos/:id", (req, res) => {
-  res.json({ msg: "Gasto 1" });
-});
+expenseRouter.get("/meus-gastos/:id", getOne);
 
 // Post Routes
 
@@ -20,14 +15,10 @@ expenseRouter.post("/meus-gastos", createExpense);
 
 // Delete Routes
 
-expenseRouter.delete("/meus-gastos/:id", (req, res) => {
-  res.json({ msg: "Gasto removido" });
-});
+expenseRouter.delete("/meus-gastos/:id", removeExpense);
 
 // Patch Routes
 
-expenseRouter.patch("/meus-gastos/:id", (req, res) => {
-  res.json({ msg: "Gasto Atualizado" });
-});
+expenseRouter.patch("/meus-gastos/:id", updateExpense);
 
 export { expenseRouter };
