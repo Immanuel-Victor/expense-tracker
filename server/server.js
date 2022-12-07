@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import express, { response } from "express";
 import { config } from "dotenv";
 import { expenseRouter } from "./routes/expenses.js";
+import { investimentRouter } from "./routes/investiments.js";
 
 const app = express();
 const environment = config();
@@ -24,3 +25,4 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/gastos", expenseRouter);
+app.use("/api/investimentos", investimentRouter)
