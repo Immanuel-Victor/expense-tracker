@@ -1,4 +1,6 @@
 import express from "express";
+import { createExpense } from "../controllers/expenseController.js";
+import { Expense } from "../models/expense.js";
 
 const expenseRouter = express.Router();
 
@@ -14,20 +16,18 @@ expenseRouter.get("/meus-gastos/:id", (req, res) => {
 
 // Post Routes
 
-expenseRouter.post('/meus-gastos', (req,res) => {
-    res.json({ msg: "Novo gasto" });
-})  
+expenseRouter.post("/meus-gastos", createExpense);
 
 // Delete Routes
 
-expenseRouter.delete('/meus-gastos/:id', (req,res) => {
-    res.json({ msg: "Gasto removido" });
-})  
+expenseRouter.delete("/meus-gastos/:id", (req, res) => {
+  res.json({ msg: "Gasto removido" });
+});
 
 // Patch Routes
 
-expenseRouter.patch('/meus-gastos/:id', (req,res) => {
-    res.json({ msg: "Gasto Atualizado" });
-})  
+expenseRouter.patch("/meus-gastos/:id", (req, res) => {
+  res.json({ msg: "Gasto Atualizado" });
+});
 
 export { expenseRouter };
