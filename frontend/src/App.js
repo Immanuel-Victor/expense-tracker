@@ -1,6 +1,8 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { NavBar } from './components/navbar';
+import { Expenses } from './pages/Expenses';
 import { Home } from './pages/Home';
+import { Investments } from './pages/Investments';
 
 function App() {
   return (
@@ -12,6 +14,14 @@ function App() {
             <Route 
             path='/'
             element={<Home/>}
+            />
+            <Route 
+            path='/gastos'
+            element={<Expenses/>}
+            />
+                        <Route 
+            path='/investimentos'
+            element={<Investments/>}
             />
           </Routes>
         </div>
