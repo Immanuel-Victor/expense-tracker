@@ -6,7 +6,6 @@ const expenseRouter = express.Router();
 // Get Routes
 
 expenseRouter.get("/meus-gastos", getAll);
-
 expenseRouter.get("/meus-gastos/:id", getOne);
 
 // Post Routes

@@ -3,6 +3,7 @@ import express, { response } from "express";
 import { config } from "dotenv";
 import { expenseRouter } from "./routes/expenses.js";
 import { investimentRouter } from "./routes/investiments.js";
+import cors from 'cors'
 
 const app = express();
 const environment = config();
@@ -19,6 +20,7 @@ mongoose
   });
 
 app.use(express.json());
+app.use(cors())
 
 app.get("/", (req, res) => {
   res.json({ msg: "Hello" });

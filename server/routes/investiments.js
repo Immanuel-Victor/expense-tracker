@@ -6,7 +6,6 @@ const investimentRouter = express.Router();
 // Get Routes
 
 investimentRouter.get("/meus-investimentos", getAll);
-
 investimentRouter.get("/meus-investimentos/:id", getOne);
 
 // Post Routes

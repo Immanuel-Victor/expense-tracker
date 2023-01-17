@@ -4,7 +4,7 @@ import mongoose from "mongoose";
 //GET
 
 const getAll = async (req, res) => {
-  const expenses = await Expense.find().sort({ createdAt: -1 });
+  const expenses = await Expense.find({}).sort({ createdAt: -1 });
   res.status(200).json(expenses);
 };
 
@@ -26,7 +26,7 @@ const createExpense = async (req, res) => {
     const gasto = await Expense.create({ titulo, descricao, valor });
     res.status(200).json(gasto);
   } catch (error) {
-    res.status(400).json({ msg: error });
+    res.status(400).json({ error: "Failed To Create Expense" });
   }
 };
 
