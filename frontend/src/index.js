@@ -2,10 +2,16 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './global.css';
 import App from './App';
+import { ExpenseContextProvider } from './context/ExpenseContext';
+import { InvestmentContextProvider } from './context/InvestmentContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <ExpenseContextProvider>
+      <InvestmentContextProvider>
+        <App />
+      </InvestmentContextProvider>
+    </ExpenseContextProvider>
   </React.StrictMode>
 );

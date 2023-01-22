@@ -26,7 +26,7 @@ const createInvestiment = async (req, res) => {
     const investiment = await Investiment.create({ titulo, valor, tipo, rendimento });
     res.status(200).json(investiment);
   } catch (error) {
-    res.status(400).json({ error: error });
+    res.status(400).json({ error: "Failed To Create" });
   }
 };
 

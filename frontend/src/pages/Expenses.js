@@ -1,10 +1,12 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { ExpenseDetails } from "./ExpenseDetails";
 import { ExpenseForm } from "./ExpenseForm";
+import { useExpenseContext } from "../hooks/useExpenseContext";
 
 function Expenses() {
-  const [expenses, setExpenses] = useState(null);
   const localHost = 'http://localhost:4000'
+  const {expenses, dispatch} = useExpenseContext()
+  
 
   useEffect(() => {
     const fetchExpenses = async () => {
@@ -12,7 +14,7 @@ function Expenses() {
       const json = await response.json();
 
       if (response.ok) {
-        setExpenses(json);
+        dispatch({type: 'SET_EXPENSE', payload:json})
       }
     }
     

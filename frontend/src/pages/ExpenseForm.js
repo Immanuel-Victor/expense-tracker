@@ -1,7 +1,9 @@
 import { useState } from "react";
+import { useExpenseContext } from "../hooks/useExpenseContext";
 
 function ExpenseForm() {
   const localHost = "http://localhost:4000";
+  const { dispatch } = useExpenseContext();
   const [titulo, setTitulo] = useState("");
   const [descricao, setDescricao] = useState("");
   const [valor, setValor] = useState(0);
@@ -30,32 +32,33 @@ function ExpenseForm() {
       setDescricao("");
       setValor("");
       console.log("Gasto Adicionado com sucesso", gasto);
+      dispatch({ type: "CREATE_EXPENSE", payload: json });
     }
   };
 
   return (
-      <form className="create" onSubmit={handleSubmit}>
-        <h3>Adicionar gasto</h3>
-        <label>Titulo</label>
-        <input
-          type="text"
-          onChange={(e) => setTitulo(e.target.value)}
-          value={titulo}
-        />
-        <label>Descricao</label>
-        <textarea
-          onChange={(e) => setDescricao(e.target.value)}
-          value={descricao}
-        />
-        <label>Valor</label>
-        <input
-          type="number"
-          onChange={(e) => setValor(e.target.value)}
-          value={valor}
-        />
-        <button type="submit">Enviar</button>
-        {error && <div className="erro">{error}</div>}
-      </form>
+    <form className="create" onSubmit={handleSubmit}>
+      <h3>Adicionar gasto</h3>
+      <label>Titulo</label>
+      <input
+        type="text"
+        onChange={(e) => setTitulo(e.target.value)}
+        value={titulo}
+      />
+      <label>Descricao</label>
+      <textarea
+        onChange={(e) => setDescricao(e.target.value)}
+        value={descricao}
+      />
+      <label>Valor</label>
+      <input
+        type="number"
+        onChange={(e) => setValor(e.target.value)}
+        value={valor}
+      />
+      <button type="submit">Enviar</button>
+      {error && <div className="erro">{error}</div>}
+    </form>
   );
 }
 
