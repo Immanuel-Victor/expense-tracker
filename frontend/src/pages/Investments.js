@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useInvestmentContext } from "../hooks/useInvestmentContext";
 import { InvestmentForm } from "./InvestmentForm";
 import { InvestmentDetails } from "./InvestmetDetails";

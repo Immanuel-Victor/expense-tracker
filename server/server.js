@@ -1,12 +1,13 @@
 import mongoose from "mongoose";
-import express, { response } from "express";
-import { config } from "dotenv";
+import express from "express";
 import { expenseRouter } from "./routes/expenses.js";
 import { investimentRouter } from "./routes/investiments.js";
+import { userRouter } from "./routes/user.js";
 import cors from 'cors'
+import dotenv from 'dotenv'
+dotenv.config();
 
 const app = express();
-const environment = config();
 
 mongoose
   .connect(process.env.DB_URI)
@@ -28,3 +29,4 @@ app.get("/", (req, res) => {
 
 app.use("/api/gastos", expenseRouter);
 app.use("/api/investimentos", investimentRouter)
+app.use("/api/user", userRouter)
