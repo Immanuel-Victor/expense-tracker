@@ -4,7 +4,10 @@ import mongoose from "mongoose";
 //GET
 
 const getAll = async (req, res) => {
-  const investiments = await Investiment.find().sort({ createdAt: -1 });
+
+  const user_id = req.user._id
+
+  const investiments = await Investiment.find({user_id}).sort({ createdAt: -1 });
   res.status(200).json(investiments);
 };
 
@@ -23,7 +26,8 @@ const createInvestiment = async (req, res) => {
   const { titulo, valor, tipo, rendimento } = req.body;
 
   try {
-    const investiment = await Investiment.create({ titulo, valor, tipo, rendimento });
+    const user_id = req.user._id;
+    const investiment = await Investiment.create({ titulo, valor, tipo, rendimento, user_id });
     res.status(200).json(investiment);
   } catch (error) {
     res.status(400).json({ error: "Failed To Create" });
