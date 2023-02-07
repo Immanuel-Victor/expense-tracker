@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useInvestmentContext } from "../hooks/useInvestmentContext";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 function InvestmentForm() {
   const localHost = "http://localhost:4000";
@@ -9,6 +10,7 @@ function InvestmentForm() {
   const [valor, setValor] = useState(0);
   const [rendimento, setRendimento] = useState(0);
   const [error, setError] = useState(null);
+  const {user} = useAuthContext();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -19,6 +21,7 @@ function InvestmentForm() {
       body: JSON.stringify(investimento),
       headers: {
         "Content-Type": "application/json",
+        'Authorization': `Bearer ${user.token}`
       },
     });
     const json = await response.json();

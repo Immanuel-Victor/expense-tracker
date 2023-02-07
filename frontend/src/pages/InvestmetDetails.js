@@ -1,21 +1,24 @@
+import { useAuthContext } from "../hooks/useAuthContext";
 import { useInvestmentContext } from "../hooks/useInvestmentContext";
 
 function InvestmentDetails({ investimento }) {
   const localHost = "http://localhost:4000";
   const { dispatch } = useInvestmentContext();
+  const { user } = useAuthContext();
 
   async function handleDelete() {
-
     const response = await fetch(
-      `${localHost}/api/investimentos/meus-investimentos/` + investimento._id,{ 
-        method: "DELETE" 
-    }
+      `${localHost}/api/investimentos/meus-investimentos/` + investimento._id,
+      {
+        method: "DELETE",
+        headers: { 'Authorization': `Bearer ${user.token}` },
+      }
     );
 
     const json = await response.json();
 
     if (response.ok) {
-      dispatch({type: "DELETE_INVESTMENT", payload:json})
+      dispatch({ type: "DELETE_INVESTMENT", payload: json });
     }
   }
 

@@ -1,14 +1,24 @@
+import { useAuthContext } from "../hooks/useAuthContext";
 import { useExpenseContext } from "../hooks/useExpenseContext";
 
 function ExpenseDetails({ expense }) {
   const localHost = "http://localhost:4000";
   const { dispatch } = useExpenseContext();
+  const {user} = useAuthContext();
 
   async function handleDelete() {
+
+    if(!user){
+      return
+    }
+
     const response = await fetch(
       `${localHost}/api/gastos/meus-gastos/` + expense._id,
       {
         method: "DELETE",
+        headers: {
+          'Authorization': `Bearer ${user.token}`
+        }
       }
     );
 

@@ -2,24 +2,34 @@ import { useEffect } from "react";
 import { ExpenseDetails } from "./ExpenseDetails";
 import { ExpenseForm } from "./ExpenseForm";
 import { useExpenseContext } from "../hooks/useExpenseContext";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 function Expenses() {
   const localHost = 'http://localhost:4000'
   const {expenses, dispatch} = useExpenseContext()
+  const {user} = useAuthContext();
   
 
   useEffect(() => {
     const fetchExpenses = async () => {
-      const response = await fetch(`${localHost}/api/gastos/meus-gastos`);
+      const response = await fetch(`${localHost}/api/gastos/meus-gastos`, {
+        headers: {
+          'Authorization': `Bearer ${user.token}`,
+          'Content-Type': 'application/json'  
+        }
+      });
       const json = await response.json();
 
       if (response.ok) {
         dispatch({type: 'SET_EXPENSE', payload:json})
       }
     }
-    
-    fetchExpenses();
-  }, []);
+
+    if(user){
+      fetchExpenses();
+    }
+
+  }, [dispatch,user]);
 
   return (
     <div>

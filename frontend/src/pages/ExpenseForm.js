@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useAuthContext } from "../hooks/useAuthContext";
 import { useExpenseContext } from "../hooks/useExpenseContext";
 
 function ExpenseForm() {
@@ -8,9 +9,15 @@ function ExpenseForm() {
   const [descricao, setDescricao] = useState("");
   const [valor, setValor] = useState(0);
   const [error, setError] = useState(null);
+  const {user} = useAuthContext();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if(!user){
+      setError('You must be logged in')
+      return
+    }
 
     const gasto = { titulo, descricao, valor };
     const response = await fetch(`${localHost}/api/gastos/meus-gastos`, {
@@ -18,6 +25,7 @@ function ExpenseForm() {
       body: JSON.stringify(gasto),
       headers: {
         "Content-Type": "application/json",
+        'Authorization': `Bearer ${user.token}`
       },
     });
     const json = await response.json();
@@ -30,7 +38,7 @@ function ExpenseForm() {
       setError(null);
       setTitulo("");
       setDescricao("");
-      setValor("");
+      setValor(0);
       console.log("Gasto Adicionado com sucesso", gasto);
       dispatch({ type: "CREATE_EXPENSE", payload: json });
     }
